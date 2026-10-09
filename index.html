@@ -351,6 +351,57 @@
     margin-bottom: 20px;
     opacity: 0.55;
   }
+
+  /* ── Modal overlay ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: #fff;
+    border: 3px solid #2d2d2d;
+    border-radius: 14px;
+    box-shadow: 6px 6px 0 #2d2d2d;
+    padding: 28px 24px 22px;
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+  }
+  .modal-title { font-size: 16px; font-weight: 900; margin-bottom: 18px; color: #2d2d2d; }
+  .modal-close {
+    position: absolute;
+    top: 12px; right: 14px;
+    background: none; border: none;
+    font-size: 20px; cursor: pointer; color: #666;
+  }
+  .modal-close:hover { color: #2d2d2d; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 800; margin-bottom: 5px; color: #2d2d2d; text-transform: uppercase; letter-spacing: 0.4px; }
+  .form-group select,
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    border: 2px solid #2d2d2d;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2d2d2d;
+    background: #f7f8fa;
+    outline: none;
+    resize: vertical;
+  }
+  .form-group select:focus,
+  .form-group input:focus,
+  .form-group textarea:focus { background: #fff; border-color: #3b82d4; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -407,8 +458,95 @@
         </div>
       </div>
       <div class="notes-actions">
-        <button class="btn primary">+ Add Note</button>
+        <button class="btn primary" id="open-add-note">+ Add Note</button>
         <button class="btn">View All Notes</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">TechEnglish — Grammar Notes</div>
+      <div class="section-sub">8 grammar topics for technical communication</div>
+      <div class="notes-grid">
+
+        <div class="note-item">
+          <div class="note-tag grammar">Grammar</div>
+          <h4>1. Modal Verbs in Technical Context</h4>
+          <p><strong>Must</strong> — compulsory requirement: "Technicians must wear safety equipment."<br>
+          <strong>Should</strong> — advice: "You should inspect the machine regularly."<br>
+          <strong>May</strong> — possibility/permission: "The device may overheat."<br>
+          <strong>Can</strong> — ability: "This sensor can detect temperature changes."</p>
+        </div>
+
+        <div class="note-item">
+          <div class="note-tag grammar">Grammar</div>
+          <h4>2. Passive Voice in Technical Writing</h4>
+          <p>Structure: <strong>Subject + be + past participle.</strong><br>
+          Active: "The technician installed the software."<br>
+          Passive: "The software was installed."<br>
+          Present: "The machine is inspected daily."<br>
+          Past: "The data was collected yesterday."<br>
+          Future: "The system will be tested tomorrow."</p>
+        </div>
+
+        <div class="note-item">
+          <div class="note-tag grammar">Grammar</div>
+          <h4>3. Present Simple &amp; Present Continuous</h4>
+          <p><strong>Present simple</strong> — facts, routines, procedures:<br>
+          "Water boils at 100°C." / "The system records temperature."<br>
+          <strong>Present continuous</strong> — ongoing actions:<br>
+          "The technician is checking the circuit."<br>
+          "The machine is operating at reduced speed."</p>
+        </div>
+
+        <div class="note-item">
+          <div class="note-tag grammar">Grammar</div>
+          <h4>4. Past Simple in Technical Reports</h4>
+          <p>Used in methodology &amp; results sections.<br>
+          Positive: "The team conducted three experiments."<br>
+          Negative: "The sensor did not detect the signal."<br>
+          Question: "Did the equipment operate correctly?"<br>
+          <em>Note: use base verb after did/did not.</em></p>
+        </div>
+
+        <div class="note-item">
+          <div class="note-tag grammar">Grammar</div>
+          <h4>5. Conditional Sentences for Safety</h4>
+          <p><strong>Zero:</strong> "If metal gets hot, it expands."<br>
+          <strong>First:</strong> "If the temperature rises, the system will shut down."<br>
+          <strong>Second:</strong> "If we had a larger battery, the device would operate longer."<br>
+          <em>Note: Do not use will in the if-clause (first conditional).</em></p>
+        </div>
+
+        <div class="note-item">
+          <div class="note-tag grammar">Grammar</div>
+          <h4>6. Subject–Verb Agreement</h4>
+          <p>Singular: "The sensor detects movement."<br>
+          Plural: "The sensors detect movement."<br>
+          Uncountable: "The equipment is ready."<br>
+          Each/every: "Each component requires inspection."<br>
+          <em>Incorrect: "The results shows…" → Correct: "The results show…"</em></p>
+        </div>
+
+        <div class="note-item">
+          <div class="note-tag grammar">Grammar</div>
+          <h4>7. Comparatives &amp; Superlatives</h4>
+          <p><strong>Comparative:</strong> faster than, more durable than.<br>
+          "Device A is faster than Device B."<br>
+          <strong>Superlative:</strong> the fastest, the most efficient.<br>
+          "This is the most efficient method."<br>
+          <em>Irregular: good → better → best.</em></p>
+        </div>
+
+        <div class="note-item">
+          <div class="note-tag grammar">Grammar</div>
+          <h4>8. Articles &amp; Quantifiers</h4>
+          <p><strong>A/an</strong> — new item: "A sensor measures temperature."<br>
+          <strong>The</strong> — specific item: "The sensor is connected."<br>
+          <strong>No article</strong> — general: "Copper conducts electricity."<br>
+          Many/few (countable) · Much/little (uncountable).<br>
+          <em>Note: equipment, information, research — uncountable.</em></p>
+        </div>
+
       </div>
     </div>
 
@@ -581,6 +719,35 @@
 
 </main>
 
+<!-- ══ ADD NOTE MODAL ══ -->
+<div class="modal-overlay" id="note-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="close-note-modal">✕</button>
+    <div class="modal-title">📝 Add New Note</div>
+    <div class="form-group">
+      <label>Tag / Category</label>
+      <select id="note-tag">
+        <option value="grammar">Grammar</option>
+        <option value="vocab">Vocabulary</option>
+        <option value="writing">Writing</option>
+        <option value="">Pronunciation</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Note Title</label>
+      <input type="text" id="note-title" placeholder="e.g. Modal Verbs in Technical Context">
+    </div>
+    <div class="form-group">
+      <label>Content</label>
+      <textarea id="note-content" rows="3" placeholder="Write your note here..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" id="cancel-note">Cancel</button>
+      <button class="btn primary" id="save-note">Save Note</button>
+    </div>
+  </div>
+</div>
+
 <footer>✏️ Made with IBM Bob ✏️</footer>
 
 <script>
@@ -609,6 +776,51 @@
       if (label) label.classList.toggle('done', cb.checked);
       updateCount();
     });
+  });
+  // ── Add Note modal
+  const modal       = document.getElementById('note-modal');
+  const openBtn     = document.getElementById('open-add-note');
+  const closeBtn    = document.getElementById('close-note-modal');
+  const cancelBtn   = document.getElementById('cancel-note');
+  const saveBtn     = document.getElementById('save-note');
+  const notesGrid   = document.querySelector('.notes-grid');
+
+  const tagLabels = { grammar: 'Grammar', vocab: 'Vocabulary', writing: 'Writing', '': 'Pronunciation' };
+  const tagColors = ['#e8f4fd','#e8fdf0','#fef9e0','#fde8f4','#e8e8fd','#fde8e8'];
+  let noteCount = 4;
+
+  function openModal()  { modal.classList.add('open'); document.getElementById('note-title').focus(); }
+  function closeModal() {
+    modal.classList.remove('open');
+    document.getElementById('note-title').value = '';
+    document.getElementById('note-content').value = '';
+    document.getElementById('note-tag').value = 'grammar';
+  }
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+  saveBtn.addEventListener('click', () => {
+    const tagVal  = document.getElementById('note-tag').value;
+    const title   = document.getElementById('note-title').value.trim();
+    const content = document.getElementById('note-content').value.trim();
+    if (!title || !content) { alert('Please fill in both title and content.'); return; }
+
+    const item = document.createElement('div');
+    item.className = 'note-item';
+    item.style.background = tagColors[noteCount % tagColors.length];
+    noteCount++;
+
+    const tagClass = tagVal ? `note-tag ${tagVal}` : 'note-tag';
+    item.innerHTML = `
+      <div class="${tagClass}">${tagLabels[tagVal]}</div>
+      <h4>${title}</h4>
+      <p>${content}</p>
+    `;
+    notesGrid.appendChild(item);
+    closeModal();
   });
 </script>
 
