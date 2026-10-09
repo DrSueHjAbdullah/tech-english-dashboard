@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical English Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #2d2d2d;
+    min-height: 100vh;
+    /* Grid paper background */
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(rgba(180,200,230,0.25) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(180,200,230,0.25) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* ── Header ── */
+  header {
+    background: #fff;
+    border-bottom: 3px solid #2d2d2d;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.06);
+  }
+
+  .header-brand { display: flex; align-items: center; gap: 12px; }
+
+  .brand-icon {
+    width: 40px; height: 40px;
+    background: #ffd166;
+    border: 2.5px solid #2d2d2d;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    box-shadow: 3px 3px 0 #2d2d2d;
+  }
+
+  .brand-name {
+    font-size: 17px;
+    font-weight: 900;
+    color: #2d2d2d;
+    letter-spacing: -0.3px;
+    text-transform: uppercase;
+  }
+  .brand-sub {
+    font-size: 11px;
+    color: #888;
+    font-weight: 600;
+    display: block;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-top: -2px;
+  }
+
+  /* ── Nav ── */
+  nav { display: flex; gap: 8px; }
+
+  .nav-btn {
+    padding: 7px 18px;
+    border: 2.5px solid #2d2d2d;
+    border-radius: 20px;
+    background: #fff;
+    font-size: 13px;
+    font-family: inherit;
+    color: #2d2d2d;
+    cursor: pointer;
+    font-weight: 800;
+    transition: transform .1s, box-shadow .1s, background .1s;
+    box-shadow: 3px 3px 0 #2d2d2d;
+  }
+  .nav-btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #2d2d2d; background: #f0f0f0; }
+  .nav-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 #2d2d2d; }
+  .nav-btn.active { background: #a8d8ea; border-color: #2d2d2d; color: #2d2d2d; }
+  .nav-btn.progress-btn { background: #d4a8ea; }
+  .nav-btn.progress-btn.active { background: #c084fc; }
+
+  /* ── Layout ── */
+  main { max-width: 880px; margin: 32px auto; padding: 0 24px; }
+
+  .panel { display: none; }
+  .panel.visible { display: block; }
+
+  /* ── Hero Banner ── */
+  .hero-banner {
+    background: #ffd166;
+    border: 3px solid #2d2d2d;
+    border-radius: 18px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 6px 6px 0 #2d2d2d;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-banner::before {
+    content: "✏️ 📚 ⭐ 📐 🎒";
+    position: absolute;
+    right: 20px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    letter-spacing: 8px;
+    opacity: 0.5;
+  }
+  .hero-title {
+    font-size: 26px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #2d2d2d;
+  }
+  .hero-sub {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-top: 2px;
+  }
+
+  /* ── Section Title ── */
+  .section-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #2d2d2d;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .section-sub { font-size: 13px; color: #666; margin-bottom: 20px; font-weight: 600; }
+
+  /* ── Cards ── */
+  .card {
+    background: #ffffff;
+    border: 2.5px solid #2d2d2d;
+    border-radius: 16px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 0 #2d2d2d;
+  }
+  .card-title {
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-title::before {
+    content: '';
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #ffd166;
+    border: 2px solid #2d2d2d;
+    flex-shrink: 0;
+  }
+
+  /* ── Notes Grid ── */
+  .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .note-item {
+    border: 2px solid #2d2d2d;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 3px 3px 0 #2d2d2d;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .note-item:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #2d2d2d; }
+  .note-item:nth-child(1) { background: #e8f4fd; }
+  .note-item:nth-child(2) { background: #e8fdf0; }
+  .note-item:nth-child(3) { background: #fef9e0; }
+  .note-item:nth-child(4) { background: #fde8f4; }
+
+  .note-item h4 { font-size: 13px; font-weight: 800; margin-bottom: 4px; color: #2d2d2d; }
+  .note-item p  { font-size: 12.5px; color: #555; line-height: 1.5; }
+
+  .note-tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 800;
+    padding: 3px 10px; border-radius: 20px;
+    margin-bottom: 8px;
+    border: 1.5px solid #2d2d2d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .note-tag          { background: #a8d8ea; color: #2d2d2d; }
+  .note-tag.grammar  { background: #d4a8ea; color: #2d2d2d; }
+  .note-tag.vocab    { background: #a8eac8; color: #2d2d2d; }
+  .note-tag.writing  { background: #ffd166; color: #2d2d2d; }
+
+  .notes-actions { display: flex; gap: 10px; margin-top: 18px; }
+
+  /* ── Buttons ── */
+  .btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 2px solid #2d2d2d;
+    background: #fff;
+    font-size: 13px;
+    font-family: inherit;
+    color: #2d2d2d;
+    cursor: pointer;
+    font-weight: 800;
+    box-shadow: 3px 3px 0 #2d2d2d;
+    transition: transform .1s, box-shadow .1s;
+  }
+  .btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #2d2d2d; }
+  .btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 #2d2d2d; }
+  .btn.primary { background: #ffd166; color: #2d2d2d; border-color: #2d2d2d; }
+  .btn.primary:hover { background: #ffc233; }
+
+  /* ── Checklist ── */
+  .checklist { list-style: none; }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1.5px dashed #d0d0d0;
+    font-size: 14px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist input[type="checkbox"] {
+    width: 18px; height: 18px;
+    margin-top: 2px;
+    accent-color: #a8d8ea;
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 4px;
+  }
+
+  .task-label { flex: 1; font-weight: 600; }
+  .task-label.done { text-decoration: line-through; color: #aaa; }
+
+  .task-meta { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+
+  .badge {
+    font-size: 10px; font-weight: 800;
+    padding: 2px 10px; border-radius: 20px;
+    border: 1.5px solid #2d2d2d;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .badge              { background: #f0f0f0; color: #666; }
+  .badge.due-soon     { background: #ffd166; color: #2d2d2d; }
+  .badge.in-progress  { background: #a8d8ea; color: #2d2d2d; }
+  .badge.done         { background: #a8eac8; color: #2d2d2d; }
+
+  /* ── Progress bars ── */
+  .progress-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .progress-label  { font-size: 13px; font-weight: 800; color: #2d2d2d; }
+  .progress-pct    { font-size: 13px; font-weight: 900; color: #2d2d2d; }
+
+  .progress-bar-bg {
+    background: #e5e7eb;
+    border-radius: 20px;
+    height: 14px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    border: 1.5px solid #2d2d2d;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: #a8d8ea;
+    transition: width .5s ease;
+  }
+  .progress-bar-fill.purple { background: #d4a8ea; }
+  .progress-bar-fill.green  { background: #a8eac8; }
+  .progress-bar-fill.amber  { background: #ffd166; }
+
+  /* ── Stats ── */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+
+  .stat-box {
+    background: #fff;
+    border: 2.5px solid #2d2d2d;
+    border-radius: 14px;
+    padding: 16px 12px;
+    text-align: center;
+    box-shadow: 4px 4px 0 #2d2d2d;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .stat-box:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #2d2d2d; }
+  .stat-box:nth-child(1) { background: #ffd166; }
+  .stat-box:nth-child(2) { background: #d4a8ea; }
+  .stat-box:nth-child(3) { background: #a8eac8; }
+  .stat-box:nth-child(4) { background: #fdb8c0; }
+
+  .stat-val { font-size: 26px; font-weight: 900; color: #2d2d2d; line-height: 1.2; }
+  .stat-lbl { font-size: 11px; color: #555; margin-top: 2px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
+
+  hr { border: none; border-top: 2px dashed #d0d0d0; margin: 16px 0; }
+
+  /* ── Lesson Reference ── */
+  .lesson-ref {
+    background: #e8f4fd;
+    border: 2px dashed #2d2d2d;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #555;
+    font-weight: 600;
+  }
+
+  /* ── Recent Activity ── */
+  .activity-list { list-style: none; font-size: 13px; }
+  .activity-list li {
+    padding: 8px 0;
+    border-bottom: 1.5px dashed #d0d0d0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .activity-list li:last-child { border-bottom: none; }
+  .activity-score { font-size: 12px; color: #888; }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    border-top: 2px dashed #ccc;
+    padding: 16px 0;
+    margin-top: 40px;
+    font-weight: 700;
+  }
+
+  /* ── Doodle divider ── */
+  .doodle-row {
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+    opacity: 0.55;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <div class="brand-icon">📖</div>
+    <div>
+      <span class="brand-name">TechEnglish</span>
+      <span class="brand-sub">Class Dashboard</span>
+    </div>
+  </div>
+  <nav>
+    <button class="nav-btn active" data-panel="notes">✏️ Notes</button>
+    <button class="nav-btn"        data-panel="tasks">✅ Tasks</button>
+    <button class="nav-btn progress-btn" data-panel="progress">📊 Progress</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ══ NOTES ══ -->
+  <section class="panel visible" id="panel-notes">
+
+    <div class="hero-banner">
+      <div class="hero-title">Class Notes 📝</div>
+      <div class="hero-sub">Review and organise your Technical English study notes.</div>
+    </div>
+
+    <div class="doodle-row">✏️ ⭐ 📐 🎒 📚 ✂️ 🖍️ 📌</div>
+
+    <div class="card">
+      <div class="card-title">Recent Notes</div>
+      <div class="notes-grid">
+        <div class="note-item">
+          <div class="note-tag grammar">Grammar</div>
+          <h4>Passive Voice in Technical Writing</h4>
+          <p>Used to focus on the process rather than the agent. E.g., "The data <em>was collected</em> using sensors."</p>
+        </div>
+        <div class="note-item">
+          <div class="note-tag vocab">Vocabulary</div>
+          <h4>Key Technical Verbs</h4>
+          <p>analyse, implement, configure, integrate, validate, optimise, deploy, simulate.</p>
+        </div>
+        <div class="note-item">
+          <div class="note-tag writing">Writing</div>
+          <h4>Abstract Structure</h4>
+          <p>Background → Objective → Method → Results → Conclusion. Keep under 250 words.</p>
+        </div>
+        <div class="note-item">
+          <div class="note-tag">Pronunciation</div>
+          <h4>Stress in Technical Terms</h4>
+          <p>SYS-tem, pro-CESS, CON-text, a-NAL-y-sis — stress shifts often when adding suffixes.</p>
+        </div>
+      </div>
+      <div class="notes-actions">
+        <button class="btn primary">+ Add Note</button>
+        <button class="btn">View All Notes</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Lesson Reference</div>
+      <div class="lesson-ref">
+        <strong style="color:#2d2d2d;">Unit 5 · Technical Reports</strong> — focus on impersonal language,
+        hedging expressions (<em>it appears that, this suggests</em>), and clear paragraph signposting.
+        Next class: <strong style="color:#2d2d2d;">Thursday, 10:00 AM — Lab 204</strong> 🏫
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TASKS ══ -->
+  <section class="panel" id="panel-tasks">
+
+    <div class="hero-banner" style="background:#a8d8ea;">
+      <div class="hero-title">Tasks &amp; Assignments 📋</div>
+      <div class="hero-sub">Keep track of homework, readings, and class activities.</div>
+    </div>
+
+    <div class="doodle-row">📌 ✅ 📅 🖊️ 📎 🗓️ 📝 ⏰</div>
+
+    <div class="card">
+      <div class="card-title">Unit 5 Checklist — Technical Reports</div>
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" id="t1" checked>
+          <div class="task-label done" id="lbl-t1">
+            Read Chapter 4: Formal vs Informal Register
+            <div class="task-meta"><span class="badge done">✓ Done</span></div>
+          </div>
+        </li>
+        <li>
+          <input type="checkbox" id="t2" checked>
+          <div class="task-label done" id="lbl-t2">
+            Complete grammar exercise: Passive Voice (p. 78–79)
+            <div class="task-meta"><span class="badge done">✓ Done</span></div>
+          </div>
+        </li>
+        <li>
+          <input type="checkbox" id="t3">
+          <div class="task-label" id="lbl-t3">
+            Write a 200-word abstract for your engineering project
+            <div class="task-meta"><span class="badge in-progress">In Progress</span><span style="font-size:12px;color:#888;font-weight:700;">Due: Fri 23 May</span></div>
+          </div>
+        </li>
+        <li>
+          <input type="checkbox" id="t4">
+          <div class="task-label" id="lbl-t4">
+            Vocabulary quiz — 30 technical terms from Units 3–5
+            <div class="task-meta"><span class="badge due-soon">⚡ Due Soon</span><span style="font-size:12px;color:#888;font-weight:700;">Due: Thu 22 May</span></div>
+          </div>
+        </li>
+        <li>
+          <input type="checkbox" id="t5">
+          <div class="task-label" id="lbl-t5">
+            Peer-review a classmate's lab report (400 words min.)
+            <div class="task-meta"><span class="badge">Upcoming</span><span style="font-size:12px;color:#888;font-weight:700;">Due: Mon 26 May</span></div>
+          </div>
+        </li>
+        <li>
+          <input type="checkbox" id="t6">
+          <div class="task-label" id="lbl-t6">
+            Prepare 3-minute oral presentation: technical process description
+            <div class="task-meta"><span class="badge">Upcoming</span><span style="font-size:12px;color:#888;font-weight:700;">Due: Wed 28 May</span></div>
+          </div>
+        </li>
+        <li>
+          <input type="checkbox" id="t7">
+          <div class="task-label" id="lbl-t7">
+            Watch lecture recording: Hedging Language in Academic English
+            <div class="task-meta"><span class="badge">Upcoming</span></div>
+          </div>
+        </li>
+      </ul>
+      <hr>
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <span id="task-count" style="font-size:13px; color:#888; font-weight:700;">2 of 7 tasks completed</span>
+        <button class="btn primary">+ Add Task</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Upcoming Deadlines</div>
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" id="d1">
+          <div class="task-label" id="lbl-d1">
+            Vocabulary Quiz — Units 3–5
+            <div class="task-meta"><span class="badge due-soon">⚡ Thu 22 May</span></div>
+          </div>
+        </li>
+        <li>
+          <input type="checkbox" id="d2">
+          <div class="task-label" id="lbl-d2">
+            Abstract Submission (Moodle)
+            <div class="task-meta"><span class="badge in-progress">📤 Fri 23 May</span></div>
+          </div>
+        </li>
+        <li>
+          <input type="checkbox" id="d3">
+          <div class="task-label" id="lbl-d3">
+            Peer Review Feedback Form
+            <div class="task-meta"><span class="badge">Mon 26 May</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ PROGRESS ══ -->
+  <section class="panel" id="panel-progress">
+
+    <div class="hero-banner" style="background:#d4a8ea;">
+      <div class="hero-title">Progress Monitor 📊</div>
+      <div class="hero-sub">Track your performance and skill development across the course.</div>
+    </div>
+
+    <div class="doodle-row">🏆 ⭐ 📈 🎯 🥇 💡 📊 🎒</div>
+
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-val">78%</div><div class="stat-lbl">Overall Score</div></div>
+      <div class="stat-box"><div class="stat-val">14/18</div><div class="stat-lbl">Tasks Done</div></div>
+      <div class="stat-box"><div class="stat-val">5</div><div class="stat-lbl">Units Completed</div></div>
+      <div class="stat-box"><div class="stat-val">3</div><div class="stat-lbl">Pending Items</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Skill Breakdown</div>
+
+      <div class="progress-header"><span class="progress-label">📖 Reading Comprehension</span><span class="progress-pct">85%</span></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:85%"></div></div>
+
+      <div class="progress-header"><span class="progress-label">✍️ Technical Writing</span><span class="progress-pct">72%</span></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:72%"></div></div>
+
+      <div class="progress-header"><span class="progress-label">📚 Vocabulary &amp; Terminology</span><span class="progress-pct">80%</span></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill purple" style="width:80%"></div></div>
+
+      <div class="progress-header"><span class="progress-label">📝 Grammar &amp; Accuracy</span><span class="progress-pct">68%</span></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill amber" style="width:68%"></div></div>
+
+      <div class="progress-header"><span class="progress-label">🎤 Oral Presentation</span><span class="progress-pct">60%</span></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill green" style="width:60%"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Course Completion</div>
+      <div class="progress-header">
+        <span class="progress-label">Units Completed (5 of 8)</span>
+        <span class="progress-pct">62%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill purple" style="width:62%"></div></div>
+      <div style="font-size:13px; color:#666; margin-top:6px; font-weight:700;">
+        Next milestone: <strong style="color:#2d2d2d;">Unit 6 — Technical Presentations</strong> · starts Thu 22 May 🚀
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Recent Activity</div>
+      <ul class="activity-list">
+        <li>✅ Passive Voice exercise submitted <span class="activity-score">Score 88/100</span></li>
+        <li>📖 Read Chapter 4 (Formal Register) <span class="activity-score">Completed</span></li>
+        <li>🗒️ Unit 4 Quiz <span class="activity-score">Score 74/100</span></li>
+        <li>🎤 In-class presentation (Unit 4) <span class="activity-score">Score 70/100</span></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>✏️ Made with IBM Bob ✏️</footer>
+
+<script>
+  // ── Nav switching
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.panel;
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.panel').forEach(p => {
+        p.classList.toggle('visible', p.id === 'panel-' + target);
+      });
+    });
+  });
+
+  // ── Checklist: strike-through on tick + update counter
+  function updateCount() {
+    const checked = document.querySelectorAll('#panel-tasks ul:first-of-type input[type="checkbox"]:checked').length;
+    const el = document.getElementById('task-count');
+    if (el) el.textContent = checked + ' of 7 tasks completed';
+  }
+
+  document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const label = cb.nextElementSibling;
+      if (label) label.classList.toggle('done', cb.checked);
+      updateCount();
+    });
+  });
+</script>
+
+</body>
+</html>
